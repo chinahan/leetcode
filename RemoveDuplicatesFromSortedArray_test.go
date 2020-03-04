@@ -1,31 +1,31 @@
-//给定一个排序数组，你需要在原地删除重复出现的元素，使得每个元素只出现一次，返回移除后数组的新长度。 
+//给定一个排序数组，你需要在原地删除重复出现的元素，使得每个元素只出现一次，返回移除后数组的新长度。
 //
-// 不要使用额外的数组空间，你必须在原地修改输入数组并在使用 O(1) 额外空间的条件下完成。 
+// 不要使用额外的数组空间，你必须在原地修改输入数组并在使用 O(1) 额外空间的条件下完成。
 //
-// 示例 1: 
+// 示例 1:
 //
-// 给定数组 nums = [1,1,2], 
+// 给定数组 nums = [1,1,2],
 //
-//函数应该返回新的长度 2, 并且原数组 nums 的前两个元素被修改为 1, 2。 
+//函数应该返回新的长度 2, 并且原数组 nums 的前两个元素被修改为 1, 2。
 //
-//你不需要考虑数组中超出新长度后面的元素。 
+//你不需要考虑数组中超出新长度后面的元素。
 //
-// 示例 2: 
+// 示例 2:
 //
 // 给定 nums = [0,0,1,1,1,2,2,3,3,4],
 //
 //函数应该返回新的长度 5, 并且原数组 nums 的前五个元素被修改为 0, 1, 2, 3, 4。
 //
 //你不需要考虑数组中超出新长度后面的元素。
-// 
 //
-// 说明: 
 //
-// 为什么返回数值是整数，但输出的答案是数组呢? 
+// 说明:
 //
-// 请注意，输入数组是以“引用”方式传递的，这意味着在函数里修改输入数组对于调用者是可见的。 
+// 为什么返回数值是整数，但输出的答案是数组呢?
 //
-// 你可以想象内部操作如下: 
+// 请注意，输入数组是以“引用”方式传递的，这意味着在函数里修改输入数组对于调用者是可见的。
+//
+// 你可以想象内部操作如下:
 //
 // // nums 是以“引用”方式传递的。也就是说，不对实参做任何拷贝
 //int len = removeDuplicates(nums);
@@ -35,19 +35,22 @@
 //for (int i = 0; i < len; i++) {
 //    print(nums[i]);
 //}
-// 
+//
 // Related Topics 数组 双指针
 package main
 
 import "testing"
 
-func TestRemoveDuplicates(t *testing.T)  {
-	nums1 := []int {1,2,3,4,4,5,6,6}
+func TestRemoveDuplicates(t *testing.T) {
+	nums1 := []int{1, 1, 2}
 	len := removeDuplicates(nums1)
 	t.Log(" len_nums1：", len, " ", nums1)
-	nums2 := []int {1,1,2,2,3,3}
+	nums2 := []int{0, 0, 1, 1, 1, 2, 2, 3, 3, 4}
 	len = removeDuplicates(nums2)
 	t.Log("len_nums2：", len, " ", nums2)
+	nums3 := []int{0, 0, 1, 1, 1, 2, 2, 3, 3}
+	len = removeDuplicates(nums3)
+	t.Log("len_nums3：", len, " ", nums3)
 }
 
 //leetcode submit region begin(Prohibit modification and deletion)
@@ -58,13 +61,14 @@ func removeDuplicates(nums []int) int {
 	if len(nums) == 1 {
 		return 1
 	}
-	var num_len = len(nums)
-	for i := 0; i < num_len; i = i+1 {
-		if nums[i] == nums[i+1]  {
+	for i := 0; i < len(nums)-1; {
+		if nums[i] == nums[i+1] {
 			nums = append(nums[:i], nums[i+1:]...)
-			num_len = len(nums)
+			continue
 		}
+		i = i + 1
 	}
 	return len(nums)
 }
+
 //leetcode submit region end(Prohibit modification and deletion)
