@@ -9,38 +9,22 @@
 package leetcode_test
 
 import (
+	"strconv"
 	"testing"
 	//"testing"
 )
 
 func TestMergeTwoLists(t *testing.T) {
-	l1 := initListNode([]int{1, 2, 4})
-	for item := *l1; ; {
-		t.Log(item.Val)
-		if item.Next == nil {
-			break
-		} else {
-			item = *item.Next
-		}
-	}
-	l2 := initListNode([]int{1, 3, 4})
-	for item := *l2; ; {
-		t.Log(item.Val)
-		if item.Next == nil {
-			break
-		} else {
-			item = *item.Next
-		}
-	}
-	l := mergeTwoLists(l1, l2)
-	for item := *l; ; {
-		t.Log(item.Val)
-		if item.Next == nil {
-			break
-		} else {
-			item = *item.Next
-		}
-	}
+	l1 := ListNode{1, nil}
+	l1.append(2)
+	l1.append(4)
+	t.Log(l1)
+	l2 := ListNode{1, nil}
+	l2.append(3)
+	l2.append(4)
+	t.Log(l2)
+	l := mergeTwoLists(&l1, &l2)
+	t.Log(l)
 }
 
 type ListNode struct {
@@ -48,14 +32,26 @@ type ListNode struct {
 	Next *ListNode
 }
 
-func initListNode(args []int) *ListNode {
-	if args == nil || len(args) <= 0 {
-		return nil
+func (l *ListNode) append(arg int) {
+	var item *ListNode = l
+	for item.Next != nil {
+		item = item.Next
 	}
-	result := ListNode{args[0], nil}
-	result.Next = initListNode(args[1:])
+	node := ListNode{arg, item.Next}
+	item.Next = &node
+}
 
-	return &result
+func (l *ListNode) String() string {
+	var resutl string
+	for item := *l; ; {
+		resutl = resutl + strconv.Itoa(item.Val) + " "
+		if item.Next == nil {
+			break
+		} else {
+			item = *item.Next
+		}
+	}
+	return resutl
 }
 
 //leetcode submit region begin(Prohibit modification and deletion)
