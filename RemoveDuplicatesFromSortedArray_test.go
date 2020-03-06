@@ -37,7 +37,7 @@
 //}
 //
 // Related Topics 数组 双指针
-package main
+package leetcode_test
 
 import "testing"
 
